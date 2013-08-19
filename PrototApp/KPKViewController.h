@@ -10,11 +10,14 @@
 
 @interface KPKViewController : UIViewController <UIAccelerometerDelegate>{
     float valueX, valueY;
+    float oldValueX, oldValueY;
 }
 
 @property (nonatomic, strong) IBOutlet UIButton *buttonMoving;
 
 -(void)awakeAccelerometer;
 -(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
+-(void)calculateMovement:(float)value4X with:(float)value4Y;
+-(void)moveThingy:(float)value4X with:(float)value4Y;
 
 @end
