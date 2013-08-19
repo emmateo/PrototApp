@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KPKViewController : UIViewController
+@interface KPKViewController : UIViewController <UIAccelerometerDelegate>{
+    float valueX, valueY;
+}
+
+@property (nonatomic, strong) IBOutlet UIButton *buttonMoving;
+
+-(void)awakeAccelerometer;
+-(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
 
 @end
