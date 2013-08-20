@@ -23,6 +23,7 @@
 		4C09E9D917BD4845006978CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C09E9B417BD4845006978CA /* Foundation.framework */; };
 		4C09E9E117BD4845006978CA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C09E9DF17BD4845006978CA /* InfoPlist.strings */; };
 		4C09E9E417BD4845006978CA /* PrototAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C09E9E317BD4845006978CA /* PrototAppTests.m */; };
+		4CFF118617C40A500024B703 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFF118517C40A500024B703 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		4C09E9E017BD4845006978CA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C09E9E217BD4845006978CA /* PrototAppTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrototAppTests.h; sourceTree = "<group>"; };
 		4C09E9E317BD4845006978CA /* PrototAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrototAppTests.m; sourceTree = "<group>"; };
+		4CFF118517C40A500024B703 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CFF118617C40A500024B703 /* MessageUI.framework in Frameworks */,
 				4C09E9B317BD4845006978CA /* UIKit.framework in Frameworks */,
 				4C09E9B517BD4845006978CA /* Foundation.framework in Frameworks */,
 				4C09E9B717BD4845006978CA /* CoreGraphics.framework in Frameworks */,
@@ -87,6 +90,7 @@
 		4C09E9A617BD4845006978CA = {
 			isa = PBXGroup;
 			children = (
+				4CFF118517C40A500024B703 /* MessageUI.framework */,
 				4C09E9B817BD4845006978CA /* PrototApp */,
 				4C09E9DC17BD4845006978CA /* PrototAppTests */,
 				4C09E9B117BD4845006978CA /* Frameworks */,
@@ -454,6 +458,7 @@
 				4C09E9E917BD4845006978CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C09E9EA17BD4845006978CA /* Build configuration list for PBXNativeTarget "PrototAppTests" */ = {
 			isa = XCConfigurationList;
@@ -462,6 +467,7 @@
 				4C09E9EC17BD4845006978CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

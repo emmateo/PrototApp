@@ -18,7 +18,7 @@
 @synthesize buttonMoving;
 
 //Calculate movement
--(void)calculateMovement:(float)value4X plus:(float)value4Y plus:(float)value4Z
+- (void)calculateMovement:(float)value4X plus:(float)value4Y plus:(float)value4Z
 {
     //Initialise auxiliar variables
     float diffX;
@@ -39,15 +39,25 @@
     NSDate *currDate = [NSDate date];
     NSTimeInterval offset = [currDate timeIntervalSinceDate:initDate];
     
+    //Compute amount of movement
     float totMovement = (diffX + diffY + diffZ);
     
+    //Insert corrent line into log
+    [self addRow2stringLog:totMovement at:offset];
+    
     //Print results
-    printf("%f;%f;\n", offset, totMovement);
+    //printf("%f;%f;\n", offset, totMovement);
 }
 
--(void)moveThingy:(float)value4X with:(float)value4Y
+- (void)addRow2stringLog:(float)movement at:(float)timestamp
 {
-    #define MOVING_OBJECT_RADIUS 34
+    //Add a row to the stringLog
+    [stringLog appendFormat:@"%f,%f;\r", timestamp, movement];
+}
+
+- (void)moveThingy:(float)value4X with:(float)value4Y
+{
+    #define MOVING_OBJECT_RADIUS 9
     
     //Create new Integer
     int intPlayerNewX = (int)(buttonMoving.center.x + valueX);
@@ -79,7 +89,7 @@
 }
 
 //AwakeAccelerometer
--(void)awakeAccelerometer
+- (void)awakeAccelerometer
 {
     //Start accelerometer
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1.0/60.0];
@@ -88,7 +98,7 @@
 }
 
 //Accelerometer movement
--(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
+- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
 {
     //Acceleration for player
     valueX = acceleration.x * 45.0;
@@ -108,14 +118,17 @@
 	// Do any additional setup after loading the view, typically from a nib.
     initDate = [[NSDate alloc] init];
     oldValueX = 0; oldValueY = 0; valueZ = 0;
+    
+    //Initialise CSV with header
+    stringLog = [NSMutableString stringWithString:@"Timestamp,Movement;\r"];
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [self awakeAccelerometer];
 }
 
--(void)viewDidDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
     //Kill the accelerometer
     [[UIAccelerometer sharedAccelerometer] setDelegate:nil];
@@ -125,6 +138,69 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)buttonAction:(id)sender {
+    //Time offset from the begining
+    NSDate *currDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd_HH:mm"];
+    NSString *formattedDateString = [dateFormatter stringFromDate:currDate];
+    NSLog(@"formattedDateString: %@", formattedDateString);
+    
+    //Set filename
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [docDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"sleepingLog_%@.csv", formattedDateString]];
+    NSError *error;
+    
+    //Create the file
+    BOOL res = [stringLog writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+    //Check completion
+    if (!res) {
+        NSLog(@"Error %@ while writing to file %@", [error localizedDescription], fileName );
+    }else{
+        NSLog(@"File: %@ was created.", fileName);
+    }
+    
+    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+    mailer.mailComposeDelegate = self;
+    [mailer setSubject:[NSString stringWithFormat:@"[SiestApp] SleepingLog \%@", formattedDateString]];
+    
+    NSArray *toRecipents = [NSArray arrayWithObjects:@"enriquemmateo@gmail.com",@"carlosdominguez6@gmail.com", nil];
+    [mailer setMessageBody:@"This is the automatic log sent from SiestApp prototype..." isHTML:NO];
+    [mailer setToRecipients:toRecipents];
+    
+    // Get the resource path and read the file using NSData
+    NSData *fileData = [NSData dataWithContentsOfFile:fileName];
+    [mailer addAttachmentData:fileData mimeType:@"text/csv" fileName:fileName];
+    
+    //Launch mail
+    [self presentViewController:mailer animated:YES completion:nil];
+}
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end
