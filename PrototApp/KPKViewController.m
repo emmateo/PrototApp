@@ -18,29 +18,31 @@
 @synthesize buttonMoving;
 
 //Calculate movement
--(void)calculateMovement:(float)value4X with:(float)value4Y
+-(void)calculateMovement:(float)value4X plus:(float)value4Y plus:(float)value4Z
 {
     //Initialise auxiliar variables
     float diffX;
     float diffY;
+    float diffZ;
     
     //Calculate amount of movement
     diffX = fabsf(valueX - oldValueX);
     diffY = fabsf(valueY - oldValueY);
+    diffZ = fabsf(valueZ - oldValueZ);
     
     //Set nex oldValues
     oldValueX = valueX;
     oldValueY = valueY;
+    oldValueZ = valueZ;
     
-    //Get date
-    NSDate *date = [[NSDate alloc] init];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSString *dateString = [dateFormatter stringFromDate:date];
+    //Time offset from the begining
+    NSDate *currDate = [NSDate date];
+    NSTimeInterval offset = [currDate timeIntervalSinceDate:initDate];
     
-    //TODO: Elaborate time offset from the begining, maybe by keeping the (start_date - current_date)
+    float totMovement = (diffX + diffY + diffZ);
     
     //Print results
-    NSLog(@"%@ %f %f", date, diffX, diffY);
+    printf("%f;%f;\n", offset, totMovement);
 }
 
 -(void)moveThingy:(float)value4X with:(float)value4Y
@@ -91,9 +93,10 @@
     //Acceleration for player
     valueX = acceleration.x * 45.0;
     valueY = acceleration.y * 45.0;
-
+    valueZ = acceleration.z * 45.0;
+    
     //Calculate movement
-    [self calculateMovement:valueX with:valueY];
+    [self calculateMovement:valueX plus:valueY plus:valueZ];
     
     //Move the thing of the screen
     [self moveThingy:valueX with:valueY];
@@ -103,7 +106,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    oldValueX = 0; oldValueY = 0;
+    initDate = [[NSDate alloc] init];
+    oldValueX = 0; oldValueY = 0; valueZ = 0;
 }
 
 -(void)viewDidAppear:(BOOL)animated
