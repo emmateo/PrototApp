@@ -23,6 +23,7 @@
 		4C09E9D917BD4845006978CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C09E9B417BD4845006978CA /* Foundation.framework */; };
 		4C09E9E117BD4845006978CA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C09E9DF17BD4845006978CA /* InfoPlist.strings */; };
 		4C09E9E417BD4845006978CA /* PrototAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C09E9E317BD4845006978CA /* PrototAppTests.m */; };
+		4C8DDB2D17D396C800EBDC06 /* zzz114.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8DDB2C17D396C800EBDC06 /* zzz114.png */; };
 		4CFF118617C40A500024B703 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFF118517C40A500024B703 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		4C09E9E017BD4845006978CA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C09E9E217BD4845006978CA /* PrototAppTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrototAppTests.h; sourceTree = "<group>"; };
 		4C09E9E317BD4845006978CA /* PrototAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrototAppTests.m; sourceTree = "<group>"; };
+		4C8DDB2C17D396C800EBDC06 /* zzz114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zzz114.png; sourceTree = "<group>"; };
 		4CFF118517C40A500024B703 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 		4C09E9A617BD4845006978CA = {
 			isa = PBXGroup;
 			children = (
+				4C8DDB2C17D396C800EBDC06 /* zzz114.png */,
 				4CFF118517C40A500024B703 /* MessageUI.framework */,
 				4C09E9B817BD4845006978CA /* PrototApp */,
 				4C09E9DC17BD4845006978CA /* PrototAppTests */,
@@ -241,6 +244,7 @@
 				4C09E9C717BD4845006978CA /* Default@2x.png in Resources */,
 				4C09E9C917BD4845006978CA /* Default-568h@2x.png in Resources */,
 				4C09E9CC17BD4845006978CA /* MainStoryboard.storyboard in Resources */,
+				4C8DDB2D17D396C800EBDC06 /* zzz114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,9 +15,17 @@
     NSMutableString *stringLog;
     float valueX, valueY, valueZ;
     float oldValueX, oldValueY, oldValueZ;
+    BOOL isButtonRecording;
+    MFMailComposeViewController *mailer;
+    BOOL logStarted;
 }
 
 @property (nonatomic, strong) IBOutlet UIButton *buttonMoving;
+@property (strong, nonatomic) IBOutlet UIButton *outletButton;
+@property (strong, nonatomic) IBOutlet UIButton *outletStopButton;
+@property (strong, nonatomic) IBOutlet UIButton *outletSendLogButton;
+@property (strong, nonatomic) IBOutlet UILabel *outletLabelexecution;
+@property (strong, nonatomic) IBOutlet UILabel *outletLabelInfo;
 
 - (void)awakeAccelerometer;
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
@@ -25,7 +33,12 @@
 - (void)moveThingy:(float)value4X with:(float)value4Y;
 - (void)addRow2stringLog:(float)movement at:(float)timestamp;
 - (void)eventOnPushButton;
-- (IBAction)buttonAction:(id)sender;
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error;
+-(void) resetInterface;
+
+- (IBAction)actionButton:(id)sender;
+- (IBAction)actionStopButton:(id)sender;
+- (IBAction)actionButtonSendLog:(id)sender;
+-(void)switchButton:(int)sender;
 
 @end
