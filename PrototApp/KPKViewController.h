@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#import "KPKMovAnalyzer.h"
 
 @interface KPKViewController : UIViewController <UIAccelerometerDelegate>{
     NSDate *initDate;
@@ -40,5 +41,6 @@
 - (IBAction)actionStopButton:(id)sender;
 - (IBAction)actionButtonSendLog:(id)sender;
 -(void)switchButton:(int)sender;
+
 
 @end

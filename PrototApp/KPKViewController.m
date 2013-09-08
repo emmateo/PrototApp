@@ -216,6 +216,11 @@
     if(isButtonRecording == TRUE){
         [self addRow2stringLog:totMovement at:offset];
     }
+    
+    if([KPKMovAnalyzer analyze:offset :totMovement]){
+        [self addRow2stringLog:-1 at:offset];
+    }
+    
     //Print results
     //printf("%f;%f;\n", offset, totMovement);
 }
