@@ -19,6 +19,9 @@
     BOOL isButtonRecording;
     MFMailComposeViewController *mailer;
     BOOL logStarted;
+    
+    CGFloat userBrightness;
+    KPKMovAnalyzer *algorythmAnalyzer;
 }
 
 @property (nonatomic, strong) IBOutlet UIButton *buttonMoving;

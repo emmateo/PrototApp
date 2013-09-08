@@ -93,7 +93,7 @@ static double energyInCurrentFrame = 0.0; // Indicates the energy in the current
  * Return true if it is necessary to wake up the user
  * Return false otherwise
  */
--(Boolean) analyze: (double)timeStamp :(double)movement{
+-(Boolean) analyze:(double)movement at:(double)timeStamp {
     
     if (currentFrameStart == 0.0) {
         currentFrameStart = timeStamp;

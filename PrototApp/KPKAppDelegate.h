@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KPKAppDelegate : UIResponder <UIApplicationDelegate>
+@interface KPKAppDelegate : UIResponder <UIApplicationDelegate>{
+    CGFloat userScreenBrightness;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

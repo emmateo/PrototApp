@@ -13,6 +13,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    //Keep user brightness value for reset
+    userScreenBrightness = [UIScreen mainScreen].brightness;
+    
     return YES;
 }
 							
@@ -26,6 +30,13 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    
+    //iOS is not meant to retain in-app brightness values. It should restore system value after the app resigns active, quits, crashes etc. So officially there is no need to do that in applicationWillResignActive.
+    //But it does't work. It's a bug. In fact it works if you try to switch to another app. Try pressing Home button twice and your brightness is gone.
+    //Don't waste your time just file a bug report to Apple (I did well).
+    //Unlock screen restores default system brightness. Just press the Power button twice and unlock to restore original brightness.
+    [UIScreen mainScreen].brightness = userScreenBrightness;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

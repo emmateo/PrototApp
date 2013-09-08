@@ -27,6 +27,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //Keep user brightness value for reset
+    userBrightness = [UIScreen mainScreen].brightness;
+    
+    //Create analyzer
+    algorythmAnalyzer = [KPKMovAnalyzer alloc];
+    algorythmAnalyzer = [algorythmAnalyzer init];
+    
     [self resetInterface];
 }
 
@@ -170,6 +178,7 @@
         [outletButton setUserInteractionEnabled:TRUE];
         outletStopButton.hidden = TRUE;
         [outletStopButton setUserInteractionEnabled:FALSE];
+        [UIScreen mainScreen].brightness = userBrightness;
 
     } else if ((isButtonRecording == FALSE) && (sender == 0)){
         //Due to button pressing now it is RECORDING
@@ -179,9 +188,11 @@
         [outletButton setUserInteractionEnabled:FALSE];
         outletStopButton.hidden = FALSE;
         [outletStopButton setUserInteractionEnabled:TRUE];
+        [UIScreen mainScreen].brightness = 0;
     } else if (sender == 2) {
         [self resetInterface];
         [outletLabelInfo setText:@"Thx for your sleeping log =)"];
+        [UIScreen mainScreen].brightness = userBrightness;
     }
 }
 
@@ -217,7 +228,7 @@
         [self addRow2stringLog:totMovement at:offset];
     }
     
-    if([KPKMovAnalyzer analyze:offset :totMovement]){
+    if([algorythmAnalyzer analyze:totMovement at:offset] == TRUE){
         [self addRow2stringLog:-1 at:offset];
     }
     
