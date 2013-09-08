@@ -39,6 +39,7 @@
     outletSendLogButton.hidden = TRUE;
     
     logStarted = FALSE;
+
 }
 
 
@@ -153,6 +154,9 @@
     }
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
+    
+    //NOW RESET INTERFACE
+    [self switchButton:2];
 }
 
 -(void)switchButton:(int)sender
@@ -175,6 +179,9 @@
         [outletButton setUserInteractionEnabled:FALSE];
         outletStopButton.hidden = FALSE;
         [outletStopButton setUserInteractionEnabled:TRUE];
+    } else if (sender == 2) {
+        [self resetInterface];
+        [outletLabelInfo setText:@"Thx for your sleeping log =)"];
     }
 }
 
