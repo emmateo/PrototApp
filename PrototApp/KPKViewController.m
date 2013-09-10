@@ -38,6 +38,7 @@
     [self resetInterface];
     
     movementBuffer.counter = 0;
+    movementBuffer.triggered = false;
 }
 
 -(void) resetInterface
@@ -231,7 +232,7 @@
     }
     
     if([algorythmAnalyzer analyze:totMovement at:offset] == TRUE){
-        [self addRow2stringLog:-1 at:offset];
+        movementBuffer.triggered = true;
     }
     
     //Print results
@@ -242,15 +243,22 @@
 {
     //check if the buffer is full, in case calculate average
     if (movementBuffer.counter >= RATIO) {
-        movementBuffer.counter = 0;
         
         //Reset counter
         float averageMovement = 0;
+        
         for (int i = 0; i < RATIO; i++) {
             averageMovement += movementBuffer.movement[i];
         }
         averageMovement = averageMovement / RATIO;
         [self addRow2stringLog:averageMovement at:timestamp];
+        if (movementBuffer.triggered == true){
+            [self addRow2stringLog:-1 at:timestamp];
+        }
+        
+        //reset struct
+        movementBuffer.counter = 0;
+        movementBuffer.triggered = false;
     }
     
     //Add row to buffer

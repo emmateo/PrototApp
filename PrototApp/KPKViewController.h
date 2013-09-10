@@ -29,6 +29,7 @@
         int counter;
         float timestamp[RATIO];
         float movement[RATIO];
+        Boolean triggered;
     };
     
     struct buffer movementBuffer;
