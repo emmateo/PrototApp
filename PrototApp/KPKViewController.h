@@ -11,6 +11,8 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "KPKMovAnalyzer.h"
 
+#define RATIO 60
+
 @interface KPKViewController : UIViewController <UIAccelerometerDelegate>{
     NSDate *initDate;
     NSMutableString *stringLog;
@@ -22,6 +24,14 @@
     
     CGFloat userBrightness;
     KPKMovAnalyzer *algorythmAnalyzer;
+    
+    struct buffer{
+        int counter;
+        float timestamp[RATIO];
+        float movement[RATIO];
+    };
+    
+    struct buffer movementBuffer;
 }
 
 @property (nonatomic, strong) IBOutlet UIButton *buttonMoving;
@@ -35,6 +45,7 @@
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration;
 - (void)calculateMovement:(float)value4X plus:(float)value4Y plus:(float)value4Z;
 - (void)moveThingy:(float)value4X with:(float)value4Y;
+- (void)addRow2buffer:(float)movement at:(float)timestamp;
 - (void)addRow2stringLog:(float)movement at:(float)timestamp;
 - (void)eventOnPushButton;
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error;

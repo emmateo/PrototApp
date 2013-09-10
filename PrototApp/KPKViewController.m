@@ -36,6 +36,8 @@
     algorythmAnalyzer = [algorythmAnalyzer init];
     
     [self resetInterface];
+    
+    movementBuffer.counter = 0;
 }
 
 -(void) resetInterface
@@ -225,7 +227,7 @@
     
     //Insert corrent line into log
     if(isButtonRecording == TRUE){
-        [self addRow2stringLog:totMovement at:offset];
+        [self addRow2buffer:totMovement at:offset];
     }
     
     if([algorythmAnalyzer analyze:totMovement at:offset] == TRUE){
@@ -236,9 +238,31 @@
     //printf("%f;%f;\n", offset, totMovement);
 }
 
+- (void)addRow2buffer:(float)movement at:(float)timestamp
+{
+    //check if the buffer is full, in case calculate average
+    if (movementBuffer.counter >= RATIO) {
+        movementBuffer.counter = 0;
+        
+        //Reset counter
+        float averageMovement = 0;
+        for (int i = 0; i < RATIO; i++) {
+            averageMovement += movementBuffer.movement[i];
+        }
+        averageMovement = averageMovement / RATIO;
+        [self addRow2stringLog:averageMovement at:timestamp];
+    }
+    
+    //Add row to buffer
+    movementBuffer.movement[movementBuffer.counter] = movement;
+    movementBuffer.timestamp[movementBuffer.counter] = timestamp;
+    movementBuffer.counter++;
+}
+
 - (void)addRow2stringLog:(float)movement at:(float)timestamp
 {
     //Add a row to the stringLog
+    NSLog(@"Log line added for offset %f", timestamp);
     [stringLog appendFormat:@"%f,%f;\r", timestamp, movement];
 }
 
