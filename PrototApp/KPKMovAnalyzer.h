@@ -10,7 +10,7 @@
 
 @interface KPKMovAnalyzer : NSObject
 
-// method analyze
+// method analyze and shit
 
 -(Boolean) analyze:(double)movement at:(double)timeStamp;
 
