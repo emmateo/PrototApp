@@ -47,7 +47,7 @@
 - (void)calculateMovement:(float)value4X plus:(float)value4Y plus:(float)value4Z;
 - (void)moveThingy:(float)value4X with:(float)value4Y;
 - (void)addRow2buffer:(float)movement at:(float)timestamp;
-- (void)addRow2stringLog:(float)movement at:(float)timestamp;
+- (void)addRow2stringLog:(float)movement at:(float)timestamp trigger:(Boolean)trigger;
 - (void)eventOnPushButton;
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error;
 -(void) resetInterface;

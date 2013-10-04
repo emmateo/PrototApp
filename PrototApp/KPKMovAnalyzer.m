@@ -95,6 +95,8 @@ static double energyInCurrentFrame = 0.0; // Indicates the energy in the current
  */
 -(Boolean) analyze:(double)movement at:(double)timeStamp {
     
+    siestaLimitFound = false;
+    
     if (currentFrameStart == 0.0) {
         currentFrameStart = timeStamp;
     }

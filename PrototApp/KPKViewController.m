@@ -71,7 +71,7 @@
             [outletLabelexecution setText:[NSString stringWithFormat:@"Log since %@",dateString]];
             
             //Initialise CSV with header
-            stringLog = [NSMutableString stringWithString:@"Timestamp,Movement;\r"];
+            stringLog = [NSMutableString stringWithString:@"Timestamp,Movement;Trigger;\r"];
             
             //Start up accelerometer so algorithm will record
             [self awakeAccelerometer];
@@ -226,14 +226,15 @@
     //Compute amount of movement
     float totMovement = (diffX + diffY + diffZ);
     
+    if([algorythmAnalyzer analyze:totMovement at:offset] == TRUE){
+        movementBuffer.triggered = true;
+    }
+    
     //Insert corrent line into log
     if(isButtonRecording == TRUE){
         [self addRow2buffer:totMovement at:offset];
     }
     
-    if([algorythmAnalyzer analyze:totMovement at:offset] == TRUE){
-        movementBuffer.triggered = true;
-    }
     
     //Print results
     //printf("%f;%f;\n", offset, totMovement);
@@ -251,10 +252,7 @@
             averageMovement += movementBuffer.movement[i];
         }
         averageMovement = averageMovement / RATIO;
-        [self addRow2stringLog:averageMovement at:timestamp];
-        if (movementBuffer.triggered == true){
-            [self addRow2stringLog:-1 at:timestamp];
-        }
+        [self addRow2stringLog:averageMovement at:timestamp trigger:movementBuffer.triggered];
         
         //reset struct
         movementBuffer.counter = 0;
@@ -267,11 +265,11 @@
     movementBuffer.counter++;
 }
 
-- (void)addRow2stringLog:(float)movement at:(float)timestamp
+- (void)addRow2stringLog:(float)movement at:(float)timestamp trigger:(Boolean)trigger
 {
     //Add a row to the stringLog
     NSLog(@"Log line added for offset %f", timestamp);
-    [stringLog appendFormat:@"%f,%f;\r", timestamp, movement];
+    [stringLog appendFormat:@"%f,%f;%d;\r", timestamp, movement,trigger];
 }
 
 - (void)moveThingy:(float)value4X with:(float)value4Y
