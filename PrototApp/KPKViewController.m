@@ -28,9 +28,6 @@
 {
     [super viewDidLoad];
     
-    //Keep user brightness value for reset
-    userBrightness = [UIScreen mainScreen].brightness;
-    
     //Create analyzer
     algorythmAnalyzer = [KPKMovAnalyzer alloc];
     algorythmAnalyzer = [algorythmAnalyzer init];
@@ -170,6 +167,8 @@
     [self switchButton:2];
 }
 
+
+/* This is the main controller of the states machine */
 -(void)switchButton:(int)sender
 {
     if ((isButtonRecording == TRUE) && (sender == 1))
@@ -181,7 +180,7 @@
         [outletButton setUserInteractionEnabled:TRUE];
         outletStopButton.hidden = TRUE;
         [outletStopButton setUserInteractionEnabled:FALSE];
-        [UIScreen mainScreen].brightness = userBrightness;
+        [UIDevice currentDevice].proximityMonitoringEnabled = NO;
 
     } else if ((isButtonRecording == FALSE) && (sender == 0)){
         //Due to button pressing now it is RECORDING
@@ -191,11 +190,10 @@
         [outletButton setUserInteractionEnabled:FALSE];
         outletStopButton.hidden = FALSE;
         [outletStopButton setUserInteractionEnabled:TRUE];
-        [UIScreen mainScreen].brightness = 0;
+        [UIDevice currentDevice].proximityMonitoringEnabled = YES;
     } else if (sender == 2) {
         [self resetInterface];
         [outletLabelInfo setText:@"Thx for your sleeping log =)"];
-        [UIScreen mainScreen].brightness = userBrightness;
     }
 }
 
